@@ -1,4 +1,4 @@
-import { MoreHorizontal, type LucideIcon } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,22 +12,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { data } from '@/utils/ad.menu';
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
+export function NavMain() {
   const { isMobile } = useSidebar();
+  const items: MenuProps[] = data;
 
   return (
     <SidebarGroup>
@@ -36,17 +25,18 @@ export function NavMain({
           <DropdownMenu key={item.title}>
             <SidebarMenuItem>
               <DropdownMenuTrigger asChild className="cursor-pointer">
-                <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+                <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-muted-foreground">
+                  <item.icon className="size-5 mr-1" />
                   {item.title} <MoreHorizontal className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              {item.items?.length ? (
+              {item.children?.length ? (
                 <DropdownMenuContent
                   side={isMobile ? 'bottom' : 'right'}
                   align={isMobile ? 'end' : 'start'}
                   className="min-w-56 rounded-lg"
                 >
-                  {item.items.map((item) => (
+                  {item.children.map((item) => (
                     <DropdownMenuItem
                       asChild
                       key={item.title}

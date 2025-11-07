@@ -33,6 +33,7 @@ const AdSignin = () => {
 
   const handleSubmit = async (data: SigninSchema) => {
     console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     showSuccess(`Welcome back, ${data.username}!`);
     navigate('/admin/dashboard');
   };
