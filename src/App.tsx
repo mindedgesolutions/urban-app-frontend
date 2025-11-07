@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <Pg.AdLayout />,
     children: [
       { path: 'dashboard', element: <Pg.AdDashboard /> },
-      { path: 'profile', element: <Pg.AdProfile /> },
-      { path: 'change-password', element: <Pg.AdProfile /> },
+      { path: 'profile', element: <Pg.AdProfilePage /> },
+      { path: 'change-password', element: <Pg.AdProfilePage /> },
     ],
   },
 ]);
