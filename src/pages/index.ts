@@ -8,3 +8,4 @@ export { default as AdForgotPassword } from '@/pages/admin/auth/AdForgotPassword
 export { default as AdResetPassword } from '@/pages/admin/auth/AdResetPassword';
 export { default as AdLayout } from '@/pages/admin/AdLayout';
 export { default as AdDashboard } from '@/pages/admin/dashboard/AdDashboard';
+export { default as AdProfile } from '@/pages/admin/profile/AdProfile';

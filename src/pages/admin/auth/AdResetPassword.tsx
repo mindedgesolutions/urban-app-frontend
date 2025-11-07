@@ -41,7 +41,6 @@ const AdResetPassword = () => {
   // -----------------------------
 
   const handleSubmit = async (data: ResetPasswordSchema) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
     showSuccess('Password has been reset successfully');
     navigate('/admin/sign-in');

@@ -13,7 +13,11 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <Pg.AdLayout />,
-    children: [{ path: 'dashboard', element: <Pg.AdDashboard /> }],
+    children: [
+      { path: 'dashboard', element: <Pg.AdDashboard /> },
+      { path: 'profile', element: <Pg.AdProfile /> },
+      { path: 'change-password', element: <Pg.AdProfile /> },
+    ],
   },
 ]);
 

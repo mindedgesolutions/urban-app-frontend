@@ -35,7 +35,7 @@ export function NavMain({
         {items.map((item) => (
           <DropdownMenu key={item.title}>
             <SidebarMenuItem>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger asChild className="cursor-pointer">
                 <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                   {item.title} <MoreHorizontal className="ml-auto" />
                 </SidebarMenuButton>
@@ -47,7 +47,11 @@ export function NavMain({
                   className="min-w-56 rounded-lg"
                 >
                   {item.items.map((item) => (
-                    <DropdownMenuItem asChild key={item.title}>
+                    <DropdownMenuItem
+                      asChild
+                      key={item.title}
+                      className="cursor-pointer"
+                    >
                       <a href={item.url}>{item.title}</a>
                     </DropdownMenuItem>
                   ))}

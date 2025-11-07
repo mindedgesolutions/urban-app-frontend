@@ -16,10 +16,19 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { images } from '@/constants';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { showSuccess } from '@/utils/show.success';
 
 const NavUser = () => {
   const { isMobile } = useSidebar();
+  const navigate = useNavigate();
+
+  // ---------------------------------------
+
+  const logout = async () => {
+    showSuccess('Logged out successfully!');
+    navigate('/admin/sign-in');
+  };
 
   return (
     <SidebarMenu>
@@ -39,7 +48,7 @@ const NavUser = () => {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{`Souvik Nag`}</span>
-                <span className="truncate text-xs">{`souvik@example.com`}</span>
+                <span className="truncate text-xs">{`souvik@test.com`}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -61,7 +70,7 @@ const NavUser = () => {
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{`Souvik Nag`}</span>
-                  <span className="truncate text-xs">{`souvik@example.com`}</span>
+                  <span className="truncate text-xs">{`souvik@test.com`}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -81,7 +90,7 @@ const NavUser = () => {
               </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <LogOut className="h-4 w-4 text-muted-foreground/80" />
               <span className="text-sm font-normal">Log out</span>
             </DropdownMenuItem>
