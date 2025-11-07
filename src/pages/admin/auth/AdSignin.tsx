@@ -1,0 +1,135 @@
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { images, titles } from '@/constants';
+import { BathIcon, Eye, EyeOffIcon } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { signinSchema, type SigninSchema } from '@/schema/auth.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group';
+import { showSuccess } from '@/utils/show.success';
+import { AdSubmitBtn } from '@/components';
+
+const AdSignin = () => {
+  document.title = `Admin Sign In | ${titles.appTitle}`;
+  const navigate = useNavigate();
+  const [isText, setIsText] = useState('password');
+  const {
+    formState: { errors, isSubmitting },
+    ...form
+  } = useForm<SigninSchema>({
+    defaultValues: { username: 'souvik@test.com', password: 'password' },
+    mode: 'all',
+    resolver: zodResolver(signinSchema),
+  });
+
+  // -----------------------------
+
+  const handleSubmit = async (data: SigninSchema) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log(data);
+    showSuccess(`Welcome back, ${data.username}!`);
+    navigate('/admin/dashboard');
+  };
+
+  return (
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <Link to="/" className="flex items-center gap-2 font-medium">
+            <div className="bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-md">
+              <BathIcon className="size-6" />
+            </div>
+            {titles.siteName}
+          </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">
+            <form
+              className="flex flex-col gap-6"
+              onSubmit={form.handleSubmit(handleSubmit)}
+              autoComplete="off"
+            >
+              <fieldset disabled={isSubmitting}>
+                <FieldGroup>
+                  <div className="flex flex-col items-center gap-1 text-center">
+                    <h1 className="text-2xl font-bold">
+                      Login to your account
+                    </h1>
+                    <p className="text-muted-foreground text-sm text-balance">
+                      Enter your email below to login to your account
+                    </p>
+                  </div>
+                  <Field>
+                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <Input
+                      id="email"
+                      {...form.register('username')}
+                      placeholder="john.doe@test.com"
+                    />
+                    <span className="text-destructive text-xs -mt-2">
+                      {errors.username?.message}
+                    </span>
+                  </Field>
+                  <Field>
+                    <div className="flex items-center">
+                      <FieldLabel htmlFor="password">Password</FieldLabel>
+                      <Link
+                        to={`/admin/forgot-password`}
+                        className="ml-auto text-sm underline-offset-4 hover:underline"
+                        tabIndex={-1}
+                      >
+                        Forgot your password?
+                      </Link>
+                    </div>
+                    <InputGroup>
+                      <InputGroupInput
+                        id="password"
+                        type={isText}
+                        {...form.register('password')}
+                        placeholder={`*`.repeat(8)}
+                      />
+                      <InputGroupAddon align="inline-end">
+                        <InputGroupButton
+                          title={isText === 'text' ? 'Hide' : 'Show'}
+                          size="icon-xs"
+                          onClick={() =>
+                            setIsText(
+                              isText === 'password' ? 'text' : 'password'
+                            )
+                          }
+                        >
+                          {isText === 'text' ? <EyeOffIcon /> : <Eye />}
+                        </InputGroupButton>
+                      </InputGroupAddon>
+                    </InputGroup>
+                    <span className="text-destructive text-xs -mt-2">
+                      {errors.password?.message}
+                    </span>
+                  </Field>
+                  <Field>
+                    <AdSubmitBtn label="Login" isSubmitting={isSubmitting} />
+                  </Field>
+                </FieldGroup>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className="bg-muted relative hidden lg:block">
+        <img
+          src={images.signinBg}
+          alt="Image"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
+      </div>
+    </div>
+  );
+};
+export default AdSignin;
