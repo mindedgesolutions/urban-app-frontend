@@ -25,7 +25,7 @@ const counters: CounterType[] = [
 ];
 
 const AdDashboard = () => {
-  document.title = `Souvik's Dashboard | ${titles.appTitle}`;
+  document.title = `Souvik's Dashboard | ${titles.siteName}`;
 
   return (
     <AdPageWrapper>

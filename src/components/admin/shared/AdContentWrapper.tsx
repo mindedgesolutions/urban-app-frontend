@@ -1,4 +1,12 @@
-const AdContentWrapper = ({ children }: { children: React.ReactNode }) => {
-  return <div className="">{children}</div>;
+import { cn } from '@/lib/utils';
+
+const AdContentWrapper = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return <div className={cn(className)}>{children}</div>;
 };
 export default AdContentWrapper;
