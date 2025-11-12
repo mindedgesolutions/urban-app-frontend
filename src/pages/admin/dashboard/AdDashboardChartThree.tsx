@@ -1,26 +1,26 @@
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
 
-type AdDashboardChartOneProps = {
+const data = [
+  { name: 'Jun', uv: 4000, pv: 2400, amt: 2400 },
+  { name: 'Jul', uv: 3000, pv: 1398, amt: 2210 },
+  { name: 'Aug', uv: 2000, pv: 9800, amt: 2290 },
+  { name: 'Sept', uv: 2780, pv: 3908, amt: 2000 },
+  { name: 'Oct', uv: 1890, pv: 4800, amt: 2181 },
+  { name: 'Nov', uv: 2390, pv: 3800, amt: 2500 },
+];
+
+type AdDashboardChartThreeProps = {
   title: string;
 };
 
-const data = [
-  { month: 'Jun', uv: 4000, pv: 2400, amt: 2400 },
-  { month: 'Jul', uv: 3000, pv: 1398, amt: 2210 },
-  { month: 'Aug', uv: 2000, pv: 9800, amt: 2290 },
-  { month: 'Sept', uv: 2780, pv: 3908, amt: 2000 },
-  { month: 'Oct', uv: 1890, pv: 4800, amt: 2181 },
-  { month: 'Nov', uv: 2390, pv: 3800, amt: 2500 },
-];
-
-const AdDashboardChartOne = ({ title }: AdDashboardChartOneProps) => {
+const AdDashboardChartThree = ({ title }: AdDashboardChartThreeProps) => {
   return (
     <div>
       <div className="bg-muted text-muted-foreground p-2 text-xs uppercase tracking-wider font-inter font-semibold">
@@ -29,32 +29,32 @@ const AdDashboardChartOne = ({ title }: AdDashboardChartOneProps) => {
       {/* Row height 25vh - mentioned in AdDashboard.tsx */}
       <div className="w-full h-full">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
+          <LineChart
             data={data}
-            margin={{ top: 20, right: 2, left: -10, bottom: 0 }}
+            margin={{ top: 20, right: 5, left: -10, bottom: 5 }}
           >
             {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <Area
-              type="monotone"
-              dataKey="uv"
-              stroke="var(--chart-1)"
-              fill="var(--chart-1)"
-              opacity={0.5}
-            />
             <XAxis
+              dataKey="name"
               stroke="var(--chart-1)"
-              dataKey="month"
               tick={<CustomTickX />}
             />
             <YAxis stroke="var(--chart-1)" tick={<CustomTickY />} />
-            <Tooltip content={<CustomTooltip />} cursor={false} />
-          </AreaChart>
+            <Tooltip content={<CustomTooltip />} />
+            {/* <Legend /> */}
+            <Line
+              type="monotone"
+              dataKey="pv"
+              stroke="var(--chart-1)"
+              // activeDot={{ r: 8 }}
+            />
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 };
-export default AdDashboardChartOne;
+export default AdDashboardChartThree;
 
 const CustomTickX = (props: any) => {
   const { x, y, payload } = props;

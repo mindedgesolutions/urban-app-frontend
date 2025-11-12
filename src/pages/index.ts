@@ -12,3 +12,6 @@ export { default as AdProfilePage } from '@/pages/admin/profile/AdProfilePage';
 export { default as AdDashboardCounter } from '@/pages/admin/dashboard/AdDashboardCounter';
 export { default as AdDashboardChartOne } from '@/pages/admin/dashboard/AdDashboardChartOne';
 export { default as AdDashboardChartTwo } from '@/pages/admin/dashboard/AdDashboardChartTwo';
+export { default as AdDashboardChartThree } from '@/pages/admin/dashboard/AdDashboardChartThree';
+export { default as AdDashboardBooking } from '@/pages/admin/dashboard/AdDashboardBooking';
+export { default as AdDashboardTasks } from '@/pages/admin/dashboard/AdDashboardTasks';

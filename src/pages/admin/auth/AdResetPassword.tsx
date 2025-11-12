@@ -83,6 +83,7 @@ const AdResetPassword = () => {
                       />
                       <InputGroupAddon align="inline-end">
                         <InputGroupButton
+                          tabIndex={-1}
                           title={isText === 'text' ? 'Hide' : 'Show'}
                           size="icon-xs"
                           onClick={() =>
