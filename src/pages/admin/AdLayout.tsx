@@ -9,7 +9,9 @@ const AdLayout = () => {
       <AppSidebar />
       <SidebarInset>
         <AdTopnav />
-        <Outlet />
+        <div className="min-h-auto md:min-h-[500px]">
+          <Outlet />
+        </div>
         <AdFooter />
       </SidebarInset>
     </SidebarProvider>

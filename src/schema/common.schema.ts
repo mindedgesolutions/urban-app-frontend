@@ -18,3 +18,8 @@ export const validNumber = (value: string | number, length: number) => {
   const pattern = /^[0-9]+$/;
   return str.length === length && pattern.test(str);
 };
+
+// ----------------------------
+
+export const fileSize100KB = 100 * 1024; // 100 KB in bytes
+export const fileSize200KB = 200 * 1024; // 200 KB in bytes

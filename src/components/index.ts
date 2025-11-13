@@ -6,3 +6,5 @@ export { default as AdTitleWrapper } from '@/components/admin/shared/AdTitleWrap
 export { default as AdTitlePopover } from '@/components/admin/shared/AdTitlePopover';
 export { default as AdContentWrapper } from '@/components/admin/shared/AdContentWrapper';
 export { default as AdErrorWrapper } from '@/components/admin/shared/AdErrorWrapper';
+export { default as AdInputTooltip } from '@/components/admin/shared/AdInputTooltip';
+export { default as AdRequired } from '@/components/admin/shared/AdRequired';

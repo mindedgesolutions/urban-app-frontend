@@ -15,3 +15,4 @@ export { default as AdDashboardChartTwo } from '@/pages/admin/dashboard/AdDashbo
 export { default as AdDashboardChartThree } from '@/pages/admin/dashboard/AdDashboardChartThree';
 export { default as AdDashboardBooking } from '@/pages/admin/dashboard/AdDashboardBooking';
 export { default as AdDashboardTasks } from '@/pages/admin/dashboard/AdDashboardTasks';
+export { default as AdProfileSection } from '@/pages/admin/profile/AdProfileSection';

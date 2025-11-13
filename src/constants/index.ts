@@ -2,12 +2,14 @@ import signinBg from '@/assets/images/sign-in-bg.jpg';
 import forgotPasswordBg from '@/assets/images/forgot-password-bg.jpg';
 import passwordResetBg from '@/assets/images/password-reset-bg.jpg';
 import defaultProfileImg from '@/assets/images/profile.jpg';
+import noImage from '@/assets/images/no-image.jpg';
 
 export const images = {
   signinBg,
   forgotPasswordBg,
   passwordResetBg,
   defaultProfileImg,
+  noImage,
 };
 
 export const titles = {

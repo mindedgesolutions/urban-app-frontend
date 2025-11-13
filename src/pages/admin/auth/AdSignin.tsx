@@ -1,7 +1,6 @@
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
 import { images, titles } from '@/constants';
-import { BathIcon, Eye, EyeOffIcon } from 'lucide-react';
+import { BathIcon, Eye, EyeOffIcon, LockKeyhole, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { signinSchema, type SigninSchema } from '@/schema/auth.schema';
@@ -68,11 +67,17 @@ const AdSignin = () => {
                   </div>
                   <Field>
                     <FieldLabel htmlFor="email">Email</FieldLabel>
-                    <Input
-                      id="email"
-                      {...form.register('username')}
-                      placeholder="john.doe@test.com"
-                    />
+                    <InputGroup>
+                      <InputGroupInput
+                        id="email"
+                        type="text"
+                        {...form.register('username')}
+                        placeholder="john.doe@test.com"
+                      />
+                      <InputGroupAddon>
+                        <User />
+                      </InputGroupAddon>
+                    </InputGroup>
                     <span className="text-destructive text-xs -mt-2">
                       {errors.username?.message}
                     </span>
@@ -95,6 +100,9 @@ const AdSignin = () => {
                         {...form.register('password')}
                         placeholder={`*`.repeat(8)}
                       />
+                      <InputGroupAddon>
+                        <LockKeyhole />
+                      </InputGroupAddon>
                       <InputGroupAddon align="inline-end">
                         <InputGroupButton
                           title={isText === 'text' ? 'Hide' : 'Show'}
