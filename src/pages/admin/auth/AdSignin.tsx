@@ -16,7 +16,7 @@ import { showSuccess } from '@/utils/show.success';
 import { AdSubmitBtn } from '@/components';
 
 const AdSignin = () => {
-  document.title = `Admin Sign In | ${titles.appTitle}`;
+  document.title = `Admin Sign In | ${titles.siteName}`;
   const navigate = useNavigate();
   const [isText, setIsText] = useState('password');
   const {
