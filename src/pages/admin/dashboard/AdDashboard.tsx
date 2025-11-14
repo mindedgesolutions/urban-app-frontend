@@ -10,6 +10,8 @@ import {
 } from '@/pages';
 import { MdOutlinePlumbing } from 'react-icons/md';
 import { FaUsers, FaBriefcase, FaRupeeSign } from 'react-icons/fa';
+import { useEffect } from 'react';
+import customFetch from '@/utils/auth/custom.fetch';
 
 type CounterType = {
   label: string;
@@ -26,6 +28,18 @@ const counters: CounterType[] = [
 
 const AdDashboard = () => {
   document.title = `Souvik's Dashboard | ${titles.siteName}`;
+
+  useEffect(() => {
+    const runTest = async () => {
+      try {
+        const response = await customFetch.get(`/admin/dashboard/test`);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    runTest();
+  }, []);
 
   return (
     <AdPageWrapper>

@@ -15,4 +15,5 @@ export const images = {
 export const titles = {
   siteName: import.meta.env.VITE_SITE_NAME,
   appTitle: import.meta.env.VITE_APP_TITLE,
+  baseUrl: import.meta.env.VITE_BASE_URL,
 };

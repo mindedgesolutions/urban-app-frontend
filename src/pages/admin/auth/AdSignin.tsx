@@ -1,4 +1,9 @@
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+} from '@/components/ui/field';
 import { images, titles } from '@/constants';
 import { BathIcon, Eye, EyeOffIcon, LockKeyhole, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,6 +19,8 @@ import {
 } from '@/components/ui/input-group';
 import { showSuccess } from '@/utils/show.success';
 import { AdSubmitBtn } from '@/components';
+import { Button } from '@/components/ui/button';
+import { FaGithub } from 'react-icons/fa';
 
 const AdSignin = () => {
   document.title = `Admin Sign In | ${titles.siteName}`;
@@ -35,6 +42,12 @@ const AdSignin = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     showSuccess(`Welcome back, ${data.username}!`);
     navigate('/admin/dashboard');
+  };
+
+  // -----------------------------
+
+  const redirectGithub = () => {
+    window.location.href = `${titles.baseUrl}/auth/github-redirect`;
   };
 
   return (
@@ -123,6 +136,17 @@ const AdSignin = () => {
                   </Field>
                   <Field>
                     <AdSubmitBtn label="Login" isSubmitting={isSubmitting} />
+                  </Field>
+                  <FieldSeparator>Or continue with</FieldSeparator>
+                  <Field>
+                    <Button
+                      variant="outline"
+                      type="button"
+                      onClick={redirectGithub}
+                    >
+                      <FaGithub />
+                      Login with GitHub
+                    </Button>
                   </Field>
                 </FieldGroup>
               </fieldset>

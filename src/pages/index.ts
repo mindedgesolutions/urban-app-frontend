@@ -16,3 +16,4 @@ export { default as AdDashboardChartThree } from '@/pages/admin/dashboard/AdDash
 export { default as AdDashboardBooking } from '@/pages/admin/dashboard/AdDashboardBooking';
 export { default as AdDashboardTasks } from '@/pages/admin/dashboard/AdDashboardTasks';
 export { default as AdProfileSection } from '@/pages/admin/profile/AdProfileSection';
+export { default as AdAuthenticating } from '@/pages/admin/auth/AdAuthenticating';
