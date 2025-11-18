@@ -21,10 +21,16 @@ import { showSuccess } from '@/utils/show.success';
 import { AdSubmitBtn } from '@/components';
 import { Button } from '@/components/ui/button';
 import { FaGithub } from 'react-icons/fa';
+import refreshFetch from '@/utils/auth/refresh.fetch';
+import { useAppDispatch } from '@/utils/hooks';
+import { setAccessToken, setCurrentUser } from '@/features/common.slice';
+import customFetch from '@/utils/auth/custom.fetch';
+import { tokenManager } from '@/utils/auth/token.manager';
 
 const AdSignin = () => {
   document.title = `Admin Sign In | ${titles.siteName}`;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isText, setIsText] = useState('password');
   const {
     formState: { errors, isSubmitting },
@@ -38,10 +44,38 @@ const AdSignin = () => {
   // -----------------------------
 
   const handleSubmit = async (data: SigninSchema) => {
-    console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    showSuccess(`Welcome back, ${data.username}!`);
-    navigate('/admin/dashboard');
+    try {
+      const response = await refreshFetch.post(`/auth/sign-in`, data);
+      if (response.status === 200) {
+        const name = response.data.data.name;
+        const token = response.data.token;
+        const oneTimeToken = response.data.one_time_pass;
+
+        tokenManager.setToken(token);
+        dispatch(setCurrentUser(response.data.data));
+        dispatch(setAccessToken(response.data.token));
+        await customFetch.post(`/auth/delete-one-time-token/${oneTimeToken}`);
+
+        showSuccess(`Welcome back, ${name}!`);
+        navigate('/admin/dashboard');
+      }
+    } catch (error) {
+      if ((error as any).status === 422) {
+        Object.entries((error as any)?.response?.data?.errors).forEach(
+          ([field, message]) => {
+            form.setError(field as keyof SigninSchema, {
+              message: message as string,
+            });
+          }
+        );
+        return;
+      } else {
+        form.setError('root', {
+          message: 'Incorrect credentials. Please try again',
+        });
+        return;
+      }
+    }
   };
 
   // -----------------------------
@@ -78,6 +112,9 @@ const AdSignin = () => {
                       Enter your email below to login to your account
                     </p>
                   </div>
+                  <span className="text-destructive text-center text-xs font-inter -mb-4">
+                    {errors.root?.message}
+                  </span>
                   <Field>
                     <FieldLabel htmlFor="email">Email</FieldLabel>
                     <InputGroup>

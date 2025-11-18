@@ -14,7 +14,6 @@ const router = createBrowserRouter([
     path: '/admin',
     element: <Pg.AdLayout />,
     children: [
-      { path: 'authenticating', element: <Pg.AdAuthenticating /> },
       { path: 'dashboard', element: <Pg.AdDashboard /> },
       { path: 'profile', element: <Pg.AdProfilePage /> },
       { path: 'change-password', element: <Pg.AdProfilePage /> },

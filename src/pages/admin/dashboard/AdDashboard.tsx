@@ -56,6 +56,7 @@ const AdDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           {counters.map((counter) => (
             <AdDashboardCounter
+              key={counter.label}
               label={counter.label}
               count={counter.count}
               icon={counter.icon}
