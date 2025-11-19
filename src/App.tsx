@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import * as Pg from '@/pages';
+import * as ld from '@/pages/loaders';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <Pg.AdLayout />,
+    loader: ld.adLayoutLoader,
     children: [
       { path: 'dashboard', element: <Pg.AdDashboard /> },
       { path: 'profile', element: <Pg.AdProfilePage /> },

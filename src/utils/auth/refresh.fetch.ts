@@ -9,18 +9,4 @@ const refreshFetch: AxiosInstance = axios.create({
   },
 });
 
-refreshFetch.interceptors.request.use(
-  async (config) => {
-    config.headers = config.headers ?? {};
-    try {
-      const rawUrl = (config.url ?? '') as string;
-      if (!rawUrl) return config;
-    } catch (err) {
-      console.error({ url: config.url, err });
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
 export default refreshFetch;

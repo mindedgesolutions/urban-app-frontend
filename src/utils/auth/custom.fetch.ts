@@ -1,21 +1,7 @@
-import axios, {
-  type AxiosError,
-  type AxiosInstance,
-  type AxiosRequestConfig,
-} from 'axios';
-import {
-  setAccessToken,
-  unsetAccessToken,
-  setCurrentUser,
-} from '@/features/common.slice';
+import axios, { type AxiosError, type AxiosInstance } from 'axios';
 import { tokenManager } from '@/utils/auth/token.manager';
 import refreshFetch from '@/utils/auth/refresh.fetch';
-import { store } from '@/store';
-
-interface RefreshResponse {
-  token?: string;
-  data?: any;
-}
+import { userManager } from './user.manager';
 
 const customFetch: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
@@ -26,55 +12,33 @@ const customFetch: AxiosInstance = axios.create({
   },
 });
 
-customFetch.interceptors.request.use(
-  async (config) => {
-    const token = tokenManager.getToken();
-    if (token) {
-      config.headers = config.headers ?? {};
-      (
-        config.headers as Record<string, string>
-      ).Authorization = `Bearer ${token}`;
-    }
-    try {
-      const rawUrl = (config.url ?? '') as string;
-      if (!rawUrl) return config;
-    } catch (err) {
-      console.error({ url: config.url, err });
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+customFetch.interceptors.request.use((config) => {
+  const token = tokenManager.getToken();
+  if (token) {
+    config.headers = config.headers ?? {};
+    (config.headers as any).Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 customFetch.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as AxiosRequestConfig & {
-      _retry?: boolean;
-    };
-
-    if (!originalRequest) return Promise.reject(error);
-
-    if (
-      originalRequest.url &&
-      originalRequest.url.includes('/auth/refresh-token')
-    ) {
+    const originalRequest = error.config as any;
+    if (!originalRequest || originalRequest._retry) {
       return Promise.reject(error);
     }
 
+    if (originalRequest.url.includes(`/auth/refresh-token`)) {
+      return Promise.reject(error);
+    }
     const status = error.response?.status;
-    const hadAuthHeader = Boolean(
-      originalRequest.headers &&
-        (originalRequest.headers as Record<string, unknown>).Authorization
-    );
 
-    if (status === 401 && !originalRequest._retry && hadAuthHeader) {
+    if (status === 401) {
       originalRequest._retry = true;
 
       try {
-        const res = await refreshFetch.post<RefreshResponse>(
-          `/auth/refresh-token`
-        );
+        const res = await refreshFetch.post(`/auth/refresh-token`);
         const newToken = res?.data?.token;
         const user = res?.data?.data;
 
@@ -83,17 +47,16 @@ customFetch.interceptors.response.use(
         }
 
         tokenManager.setToken(newToken);
-        store.dispatch(setAccessToken(newToken));
-        if (user) store.dispatch(setCurrentUser(user));
+        userManager.setUser(user);
 
-        originalRequest.headers = originalRequest.headers ?? {};
-        (
-          originalRequest.headers as Record<string, string>
-        ).Authorization = `Bearer ${newToken}`;
+        originalRequest.headers = {
+          ...originalRequest.headers,
+          Authorization: `Bearer ${newToken}`,
+        };
         return customFetch(originalRequest);
       } catch (refreshErr) {
         tokenManager.clear();
-        store.dispatch(unsetAccessToken());
+        userManager.clear();
         window.dispatchEvent(new Event('unauthenticated'));
         return Promise.reject(refreshErr);
       }

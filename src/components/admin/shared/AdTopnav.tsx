@@ -1,8 +1,11 @@
 import { ModeToggle } from '@/components/mode-toggle';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import AdProfileContainer from './AdProfileContainer';
+import { userManager } from '@/utils/auth/user.manager';
 
 const AdTopnav = () => {
+  const currentUser = userManager.getUser();
+
   return (
     <div className="bg-sidebar flex flex-row justify-between items-center relative">
       <SidebarTrigger />
@@ -10,7 +13,9 @@ const AdTopnav = () => {
         <ModeToggle />
         <span className="hidden md:block text-sm text-muted-foreground font-medium">
           Welcome{' '}
-          <span className="uppercase tracking-wider ml-1">{`Souvik Nag`}</span>
+          <span className="uppercase tracking-wider ml-1">
+            {currentUser?.name}
+          </span>
         </span>
         <AdProfileContainer />
       </section>

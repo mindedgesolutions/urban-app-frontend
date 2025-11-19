@@ -8,3 +8,4 @@ export { default as AdContentWrapper } from '@/components/admin/shared/AdContent
 export { default as AdErrorWrapper } from '@/components/admin/shared/AdErrorWrapper';
 export { default as AdInputTooltip } from '@/components/admin/shared/AdInputTooltip';
 export { default as AdRequired } from '@/components/admin/shared/AdRequired';
+export { default as AdPageLoader } from '@/components/admin/shared/AdPageLoader';

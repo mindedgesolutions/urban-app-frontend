@@ -6,14 +6,17 @@ import { Toaster } from 'sonner';
 import { ThemeProvider } from './components/theme-provider.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store.ts';
+import { AuthProvider } from './utils/auth/AuthProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
-      <ThemeProvider>
-        <App />
-        <Toaster position="top-center" closeButton />
-      </ThemeProvider>
-    </Provider>
+    <AuthProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <App />
+          <Toaster position="top-center" closeButton />
+        </ThemeProvider>
+      </Provider>
+    </AuthProvider>
   </StrictMode>
 );

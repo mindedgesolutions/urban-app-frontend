@@ -22,15 +22,13 @@ import { AdSubmitBtn } from '@/components';
 import { Button } from '@/components/ui/button';
 import { FaGithub } from 'react-icons/fa';
 import refreshFetch from '@/utils/auth/refresh.fetch';
-import { useAppDispatch } from '@/utils/hooks';
-import { setAccessToken, setCurrentUser } from '@/features/common.slice';
 import customFetch from '@/utils/auth/custom.fetch';
 import { tokenManager } from '@/utils/auth/token.manager';
+import { userManager } from '@/utils/auth/user.manager';
 
 const AdSignin = () => {
   document.title = `Admin Sign In | ${titles.siteName}`;
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [isText, setIsText] = useState('password');
   const {
     formState: { errors, isSubmitting },
@@ -48,12 +46,12 @@ const AdSignin = () => {
       const response = await refreshFetch.post(`/auth/sign-in`, data);
       if (response.status === 200) {
         const name = response.data.data.name;
+        const user = response.data.data;
         const token = response.data.token;
         const oneTimeToken = response.data.one_time_pass;
 
         tokenManager.setToken(token);
-        dispatch(setCurrentUser(response.data.data));
-        dispatch(setAccessToken(response.data.token));
+        userManager.setUser(user);
         await customFetch.post(`/auth/delete-one-time-token/${oneTimeToken}`);
 
         showSuccess(`Welcome back, ${name}!`);
