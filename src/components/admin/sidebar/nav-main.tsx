@@ -13,6 +13,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { data } from '@/utils/ad.menu';
+import { Link } from 'react-router-dom';
 
 export function NavMain() {
   const { isMobile } = useSidebar();
@@ -42,7 +43,7 @@ export function NavMain() {
                       key={item.title}
                       className="cursor-pointer"
                     >
-                      <a href={item.url}>{item.title}</a>
+                      <Link to={item.url}>{item.title}</Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>

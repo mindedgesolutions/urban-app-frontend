@@ -19,6 +19,32 @@ const router = createBrowserRouter([
       { path: 'dashboard', element: <Pg.AdDashboard /> },
       { path: 'profile', element: <Pg.AdProfilePage /> },
       { path: 'change-password', element: <Pg.AdProfilePage /> },
+      {
+        path: 'settings',
+        children: [
+          { path: 'categories', element: <Pg.AdListCategories /> },
+          { path: 'categories/add', element: <Pg.AdAddEditCategory /> },
+          { path: 'categories/{id}/edit', element: <Pg.AdAddEditCategory /> },
+          { path: 'sub-categories', element: <Pg.AdListSubCategories /> },
+          {
+            path: 'sub-categories/add',
+            element: <Pg.AdAddEditSubCategory />,
+          },
+          {
+            path: 'sub-categories/{id}/edit',
+            element: <Pg.AdAddEditSubCategory />,
+          },
+          { path: 'service-details', element: <Pg.AdListServiceDetails /> },
+          {
+            path: 'service-details/add',
+            element: <Pg.AdAddEditServiceDetails />,
+          },
+          {
+            path: 'service-details/{id}/edit',
+            element: <Pg.AdAddEditServiceDetails />,
+          },
+        ],
+      },
     ],
   },
 ]);
