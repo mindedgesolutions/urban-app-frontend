@@ -3,6 +3,9 @@ import { tokenManager } from '@/utils/auth/token.manager';
 import refreshFetch from '@/utils/auth/refresh.fetch';
 import { userManager } from './user.manager';
 
+let isRefreshing = false;
+let refreshQueue: ((token: string) => void)[] = [];
+
 const customFetch: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
   withCredentials: true,
@@ -37,6 +40,18 @@ customFetch.interceptors.response.use(
     if (status === 401) {
       originalRequest._retry = true;
 
+      // Queue the request while refreshing
+      if (isRefreshing) {
+        return new Promise((resolve) => {
+          refreshQueue.push((newToken) => {
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            resolve(customFetch(originalRequest));
+          });
+        });
+      }
+
+      isRefreshing = true;
+
       try {
         const res = await refreshFetch.post(`/auth/refresh-token`);
         const newToken = res?.data?.token;
@@ -49,12 +64,17 @@ customFetch.interceptors.response.use(
         tokenManager.setToken(newToken);
         userManager.setUser(user);
 
-        originalRequest.headers = {
-          ...originalRequest.headers,
-          Authorization: `Bearer ${newToken}`,
-        };
+        // Processing refresh queue request
+        refreshQueue.forEach((cb) => cb(newToken));
+        refreshQueue = [];
+        isRefreshing = false;
+
+        // Retrying original request with new token
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return customFetch(originalRequest);
       } catch (refreshErr) {
+        isRefreshing = false;
+        refreshQueue = [];
         tokenManager.clear();
         userManager.clear();
         window.dispatchEvent(new Event('unauthenticated'));

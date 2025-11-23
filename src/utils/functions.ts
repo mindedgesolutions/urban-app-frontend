@@ -1,3 +1,24 @@
+import refreshFetch from './auth/refresh.fetch';
+import { tokenManager } from './auth/token.manager';
+import { userManager } from './auth/user.manager';
+
+export async function restoreAuth() {
+  try {
+    const res = await refreshFetch.post('/auth/refresh-token');
+    const newToken = res.data.token;
+    const user = res.data.data;
+
+    tokenManager.setToken(newToken);
+    userManager.setUser(user);
+
+    return true;
+  } catch {
+    tokenManager.clear();
+    userManager.clear();
+    return false;
+  }
+}
+
 export function formatIndian(num: number): string {
   const str = num.toString().split('.');
   let intPart = str[0];

@@ -1,9 +1,4 @@
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { images, titles } from '@/constants';
 import { BathIcon, Eye, EyeOffIcon, LockKeyhole, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,12 +14,8 @@ import {
 } from '@/components/ui/input-group';
 import { showSuccess } from '@/utils/show.success';
 import { AdSubmitBtn } from '@/components';
-import { Button } from '@/components/ui/button';
-import { FaGithub } from 'react-icons/fa';
 import refreshFetch from '@/utils/auth/refresh.fetch';
 import customFetch from '@/utils/auth/custom.fetch';
-import { tokenManager } from '@/utils/auth/token.manager';
-import { userManager } from '@/utils/auth/user.manager';
 
 const AdSignin = () => {
   document.title = `Admin Sign In | ${titles.siteName}`;
@@ -46,12 +37,8 @@ const AdSignin = () => {
       const response = await refreshFetch.post(`/auth/sign-in`, data);
       if (response.status === 200) {
         const name = response.data.data.name;
-        const user = response.data.data;
-        const token = response.data.token;
         const oneTimeToken = response.data.one_time_pass;
 
-        tokenManager.setToken(token);
-        userManager.setUser(user);
         await customFetch.post(`/auth/delete-one-time-token/${oneTimeToken}`);
 
         showSuccess(`Welcome back, ${name}!`);
@@ -74,12 +61,6 @@ const AdSignin = () => {
         return;
       }
     }
-  };
-
-  // -----------------------------
-
-  const redirectGithub = () => {
-    window.location.href = `${titles.baseUrl}/auth/github-redirect`;
   };
 
   return (
@@ -170,18 +151,11 @@ const AdSignin = () => {
                     </span>
                   </Field>
                   <Field>
-                    <AdSubmitBtn label="Login" isSubmitting={isSubmitting} />
-                  </Field>
-                  <FieldSeparator>Or continue with</FieldSeparator>
-                  <Field>
-                    <Button
-                      variant="outline"
-                      type="button"
-                      onClick={redirectGithub}
-                    >
-                      <FaGithub />
-                      Login with GitHub
-                    </Button>
+                    <AdSubmitBtn
+                      label="Login"
+                      submitLabel="Logging in ..."
+                      isSubmitting={isSubmitting}
+                    />
                   </Field>
                 </FieldGroup>
               </fieldset>

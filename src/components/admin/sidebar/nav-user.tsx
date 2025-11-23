@@ -18,6 +18,7 @@ import {
 import { images } from '@/constants';
 import { Link, useNavigate } from 'react-router-dom';
 import { showSuccess } from '@/utils/show.success';
+import customFetch from '@/utils/auth/custom.fetch';
 
 const NavUser = () => {
   const { isMobile } = useSidebar();
@@ -26,8 +27,16 @@ const NavUser = () => {
   // ---------------------------------------
 
   const logout = async () => {
-    showSuccess('Logged out successfully!');
-    navigate('/admin/sign-in');
+    try {
+      const response = await customFetch.post(`/auth/sign-out`);
+      if (response.status === 200) {
+        showSuccess('Logged out successfully!');
+        navigate('/admin/sign-in');
+      }
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   };
 
   return (

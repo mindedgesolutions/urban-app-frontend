@@ -3,15 +3,21 @@ import { Spinner } from '@/components/ui/spinner';
 
 type BtnProps = {
   label: string;
+  submitLabel?: string;
   isSubmitting: boolean;
   className?: string;
 };
 
-const AdSubmitBtn = ({ label, isSubmitting, className }: BtnProps) => {
+const AdSubmitBtn = ({
+  label,
+  submitLabel,
+  isSubmitting,
+  className,
+}: BtnProps) => {
   return (
     <Button type="submit" className={className} disabled={isSubmitting}>
       {isSubmitting && <Spinner />}
-      {isSubmitting ? 'Submitting...' : label}
+      {isSubmitting ? submitLabel || 'Submitting...' : label}
     </Button>
   );
 };

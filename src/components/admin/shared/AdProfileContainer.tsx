@@ -12,6 +12,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { images } from '@/constants';
 import { Button } from '@/components/ui/button';
 import { showSuccess } from '@/utils/show.success';
+import customFetch from '@/utils/auth/custom.fetch';
 
 const AdProfileContainer = () => {
   const navigate = useNavigate();
@@ -19,8 +20,16 @@ const AdProfileContainer = () => {
   // -----------------------------
 
   const logout = async () => {
-    showSuccess('Logged out successfully');
-    navigate('/admin/sign-in');
+    try {
+      const response = await customFetch.post(`/auth/sign-out`);
+      if (response.status === 200) {
+        showSuccess('Logged out successfully!');
+        navigate('/admin/sign-in');
+      }
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   };
 
   return (
