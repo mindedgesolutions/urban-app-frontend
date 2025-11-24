@@ -34,7 +34,7 @@ const AdSignin = () => {
 
   const handleSubmit = async (data: SigninSchema) => {
     try {
-      const response = await refreshFetch.post(`/auth/sign-in`, data);
+      const response = await refreshFetch.post(`/auth/login`, data);
       if (response.status === 200) {
         const name = response.data.data.name;
         const oneTimeToken = response.data.one_time_pass;

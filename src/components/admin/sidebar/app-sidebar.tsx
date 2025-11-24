@@ -13,6 +13,7 @@ import {
 import NavUser from './nav-user';
 import { titles } from '@/constants';
 import { Link } from 'react-router-dom';
+import { NavSettings } from './nav-settings';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -36,6 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain />
+        <NavSettings />
       </SidebarContent>
       <SidebarFooter>
         <div className="p-1">

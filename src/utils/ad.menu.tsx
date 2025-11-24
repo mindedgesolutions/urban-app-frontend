@@ -1,33 +1,10 @@
-import {
-  ArrowBigUpDash,
-  BetweenHorizonalStart,
-  LandmarkIcon,
-  LayoutPanelLeft,
-} from 'lucide-react';
+import { Users } from 'lucide-react';
+import { BiCategory, BiWrench, BiCog } from 'react-icons/bi';
 
 export const data: MenuProps[] = [
   {
-    title: 'Categories',
-    icon: BetweenHorizonalStart,
-    children: [
-      {
-        title: 'Categories',
-        url: '/admin/settings/categories',
-      },
-      {
-        title: 'Sub-categories',
-        url: '/admin/settings/sub-categories',
-      },
-    ],
-  },
-  {
-    title: 'Service Details',
-    icon: LayoutPanelLeft,
-    url: '/admin/settings/service-details',
-  },
-  {
-    title: 'API Reference',
-    icon: ArrowBigUpDash,
+    title: 'Service Providers',
+    icon: BiCog,
     children: [
       {
         title: 'Components',
@@ -56,8 +33,8 @@ export const data: MenuProps[] = [
     ],
   },
   {
-    title: 'Architecture',
-    icon: LandmarkIcon,
+    title: 'Customers',
+    icon: Users,
     children: [
       {
         title: 'Accessibility',
@@ -80,5 +57,27 @@ export const data: MenuProps[] = [
         url: '#',
       },
     ],
+  },
+];
+
+export const settings: MenuProps[] = [
+  {
+    title: 'Categories',
+    icon: BiCategory,
+    children: [
+      {
+        title: 'Categories',
+        url: '/admin/settings/categories',
+      },
+      {
+        title: 'Sub-categories',
+        url: '/admin/settings/sub-categories',
+      },
+    ],
+  },
+  {
+    title: 'Service Details',
+    icon: BiWrench,
+    url: '/admin/settings/service-details',
   },
 ];

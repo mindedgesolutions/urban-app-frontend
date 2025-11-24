@@ -8,7 +8,7 @@ type TitleProps = {
 const AdTitleWrapper = ({ title, info }: TitleProps) => {
   return (
     <div className="bg-muted p-2 mb-4 flex items-center">
-      <h1 className="font-inter text-sm text-muted-foreground font-semibold tracking-wide">
+      <h1 className="py-1 font-inter text-sm text-muted-foreground font-semibold tracking-wide">
         {title}
       </h1>
       {info && <AdTitlePopover info={info} />}

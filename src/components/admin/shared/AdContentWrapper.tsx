@@ -7,6 +7,6 @@ const AdContentWrapper = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return <div className={cn(className)}>{children}</div>;
+  return <div className={cn('p-0 md:p-2', className)}>{children}</div>;
 };
 export default AdContentWrapper;
