@@ -16,9 +16,9 @@ export { default as AdDashboardChartThree } from '@/pages/admin/dashboard/AdDash
 export { default as AdDashboardBooking } from '@/pages/admin/dashboard/AdDashboardBooking';
 export { default as AdDashboardTasks } from '@/pages/admin/dashboard/AdDashboardTasks';
 export { default as AdProfileSection } from '@/pages/admin/profile/AdProfileSection';
-export { default as AdListCategories } from '@/pages/admin/categories/categories/AdListCategories';
-export { default as AdAddEditCategory } from '@/pages/admin/categories/categories/AdAddEditCategory';
-export { default as AdListSubCategories } from '@/pages/admin/categories/sub.categories/AdListSubCategories';
-export { default as AdAddEditSubCategory } from '@/pages/admin/categories/sub.categories/AdAddEditSubCategory';
-export { default as AdListServiceDetails } from '@/pages/admin/categories/service.details/AdListServiceDetails';
-export { default as AdAddEditServiceDetails } from '@/pages/admin/categories/service.details/AdAddEditServiceDetails';
+export { default as AdListCategories } from '@/pages/admin/settings/categories/AdListCategories';
+export { default as AdAddEditCategory } from '@/pages/admin/settings/categories/AdAddEditCategory';
+export { default as AdListSubCategories } from '@/pages/admin/settings/sub.categories/AdListSubCategories';
+export { default as AdAddEditSubCategory } from '@/pages/admin/settings/sub.categories/AdAddEditSubCategory';
+export { default as AdListServiceDetails } from '@/pages/admin/settings/service.details/AdListServiceDetails';
+export { default as AdAddEditServiceDetails } from '@/pages/admin/settings/service.details/AdAddEditServiceDetails';
