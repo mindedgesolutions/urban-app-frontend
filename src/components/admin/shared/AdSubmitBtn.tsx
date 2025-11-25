@@ -15,7 +15,12 @@ const AdSubmitBtn = ({
   className,
 }: BtnProps) => {
   return (
-    <Button type="submit" className={className} disabled={isSubmitting}>
+    <Button
+      type="submit"
+      size={'sm'}
+      className={className}
+      disabled={isSubmitting}
+    >
       {isSubmitting && <Spinner />}
       {isSubmitting ? submitLabel || 'Submitting...' : label}
     </Button>

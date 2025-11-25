@@ -1,3 +1,4 @@
+import { AdSubmitBtn } from '@/components';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -11,7 +12,7 @@ import { Label } from '@/components/ui/label';
 
 const AdAddEditCategory = () => {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm mt-0 md:-mt-1">
       <CardHeader>
         <CardTitle>Add new category</CardTitle>
       </CardHeader>
@@ -42,13 +43,9 @@ const AdAddEditCategory = () => {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
-        <Button variant="outline" className="w-full">
-          Login with Google
-        </Button>
+      <CardFooter className="flex justify-between items-center">
+        <Button variant="outline">Reset</Button>
+        <AdSubmitBtn isSubmitting={false} label="Submit" className="w-auto" />
       </CardFooter>
     </Card>
   );

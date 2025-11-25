@@ -60,7 +60,7 @@ const AdListCategories = () => {
     <AdPageWrapper>
       <AdTitleWrapper title={`List of Categories`} />
       <AdContentWrapper>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="col-span-2">
             <AdFilterCategory />
             <Table className="font-inter text-muted-foreground text-xs">
